@@ -1,0 +1,53 @@
+.main {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: center;
+}
+
+.error {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.errorTitle {
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 100px;
+    color: #ad61ff;
+}
+
+.errorButton {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 24px;
+    border: 1px solid #ffffff;
+    border-radius: 60px;
+    padding: 20px;
+    background: none;
+    color: #ffffff;
+}
+
+.errorButton:hover {
+    border-color: #d9b6ff;
+    color: #d9b6ff;
+    cursor: pointer;
+}
+
+.errorButton:active {
+    border-color: #ad61ff;
+    color: #ad61ff;
+    cursor: pointer;
+}
