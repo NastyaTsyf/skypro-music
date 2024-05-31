@@ -1,0 +1,82 @@
+.styledVolumeInput {
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.styledVolumeInput:focus {
+    outline: none;
+}
+
+.styledVolumeInput::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+    background: #797979;
+    border-radius: 0px;
+}
+
+.styledVolumeInput::-webkit-slider-thumb {
+    border: 2px solid #ffffff;
+    height: 12px;
+    width: 12px;
+    border-radius: 12px;
+    background: #1A1A1A;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+}
+
+.styledVolumeInput:focus::-webkit-slider-runnable-track {
+    background: #797979;
+}
+
+.styledVolumeInput::-moz-range-track {
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+    background: #797979;
+    border-radius: 0px;
+
+}
+
+.styledVolumeInput::-moz-range-thumb {
+    border: 2px solid #ffffff;
+    height: 12px;
+    width: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.styledVolumeInput::-ms-track {
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+.styledVolumeInput::-ms-fill-lower {
+    background: #797979;
+}
+
+.styledVolumeInput::-ms-fill-upper {
+    background: #797979;
+}
+
+.styledVolumeInput::-ms-thumb {
+    border: 2px solid #ffffff;
+    height: 12px;
+    width: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.styledVolumeInput:focus::-ms-fill-lower {
+    background: #797979;
+}
+
+.styledVolumeInput:focus::-ms-fill-upper {
+    background: #797979;
+}

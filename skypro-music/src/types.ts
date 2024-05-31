@@ -1,4 +1,4 @@
-type UserType = {
+type userType = {
     id: number,
     username: string,
     first_name: string,
@@ -6,7 +6,7 @@ type UserType = {
     email: string
 }
 
-export type TrackType = {
+export type trackType = {
     id: number,
     name: string,
     author: string,
@@ -16,6 +16,7 @@ export type TrackType = {
     album: string,
     logo: string | null,
     track_file: string,
-    stared_user: UserType[]
+    stared_user: userType[]
 
 }
+
