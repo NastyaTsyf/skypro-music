@@ -1,0 +1,56 @@
+.filterItem {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.filterButton {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #ffffff;
+  border-radius: 60px;
+  padding: 6px 20px;
+}
+
+.filterButton:not(:last-child) {
+  margin-right: 10px;
+}
+
+.btnText:hover {
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+  cursor: pointer;
+}
+
+.btnText:active {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+}
+
+.filterItemList {
+  width: 248px;
+  height: 305px;
+  border-radius: 12px;
+  border: none;
+  background: #313131;
+  padding: 34px;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+}
+
+.filterItemListItem {
+  text-align: left
+}
+
+.filterItemListItem:hover {
+  color: #B672FF;
+  text-decoration: underline;
+}
+
+

@@ -1,7 +1,11 @@
 import styles from "./Burger.module.css"
-export default function Burger() {
+
+type BurgerType = {
+    handleBurgerClick: () => void,
+}
+export default function Burger({handleBurgerClick}: BurgerType) {
     return (
-        <div className={styles.burger}>
+        <div onClick={() => handleBurgerClick()} className={styles.burger}>
             <span className={styles.burgerLine} />
             <span className={styles.burgerLine} />
             <span className={styles.burgerLine} />

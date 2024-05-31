@@ -1,16 +1,27 @@
-import classNames from "classnames"
+'use client'
 import styles from "./Filter.module.css"
+import FilterItem from "./FilterItem/FilterItem"
+import { useState } from "react"
+import { filters } from "./data"
+
+
+
 export default function Filter() {
-    return (
-        <div className={styles.filter}>
-        <div className={styles.filterTitle}>Искать по:</div>
-        <div className={classNames(styles.filterButton, styles.btnText, styles.buttonAuthor)}>
-          исполнителю
-        </div>
-        <div className={classNames(styles.filterButton, styles.btnText, styles.buttonYear)}>
-          году выпуска
-        </div>
-        <div className={classNames(styles.filterButton, styles.btnText, styles.buttonGenre)}>жанру</div>
-      </div>
-    )
+  const [activeFilter, setActiveFilter] = useState<string | null>(null)
+  function handleFilterClick(newFilter:string) {
+    setActiveFilter((prev) => prev === newFilter ? null : newFilter)
+  }
+  return (
+    <div className={styles.filter}>
+      <div className={styles.filterTitle}>Искать по:</div>
+      {filters.map((filter) => (
+        <FilterItem
+        key={filter.title}
+        isOpened={activeFilter === filter.title ? true : false}
+        handleFilterClick={handleFilterClick}
+        title={filter.title}
+        list={filter.list} />
+      ))}
+    </div>
+  )
 }
