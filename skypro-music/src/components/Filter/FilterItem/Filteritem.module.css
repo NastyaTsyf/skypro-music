@@ -24,7 +24,7 @@
   cursor: pointer;
 }
 
-.btnText:active {
+.btnTextActive {
   border-color: #ad61ff;
   color: #ad61ff;
   cursor: pointer;
