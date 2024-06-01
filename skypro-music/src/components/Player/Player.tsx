@@ -1,8 +1,45 @@
 import classNames from "classnames";
 import TrackPlay from "../TrackPlay/TrackPlay";
 import styles from "./Player.module.css";
+import { trackType } from "@/types";
+import { MutableRefObject, useState } from "react";
 
-export default function Player() {
+type PlayerType = {
+    track: trackType
+    audioRef: MutableRefObject<HTMLAudioElement | null>
+  }
+
+export default function Player({track, audioRef} : PlayerType) {
+
+    const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  
+    const togglePlay = () => {
+      if (audioRef.current) {
+        if (isPlaying) {
+          audioRef.current.pause();
+        } else {
+          audioRef.current.play();
+        }
+        setIsPlaying(!isPlaying);
+      }
+    };
+
+    if (audioRef.current) {
+        if (isPlaying) {
+          audioRef.current.play();
+        }
+      }
+    
+
+    const [isLoop, setIsLoop] = useState<boolean>(false);
+  
+    const toggleLoop = () => {
+      if (audioRef.current) {
+        audioRef.current.loop = !audioRef.current.loop
+        setIsLoop(!isLoop);
+      }
+    };
+
     return (
         <div className={styles.player}>
             <div className={styles.playerControls}>
@@ -11,9 +48,9 @@ export default function Player() {
                         <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                     </svg>
                 </div>
-                <div className={classNames(styles.playerBtnPlay, styles.btn)} >
+                <div onClick={togglePlay} className={classNames(styles.playerBtnPlay, styles.btn)} >
                     <svg className={styles.playerBtnPlaySvg}>
-                        <use xlinkHref="img/icon/sprite.svg#icon-play" />
+                        <use xlinkHref={`img/icon/sprite.svg#${isPlaying ? "icon-pause" : "icon-play"}`} />
                     </svg>
                 </div>
                 <div className={styles.playerBtnNext}>
@@ -21,9 +58,9 @@ export default function Player() {
                         <use xlinkHref="img/icon/sprite.svg#icon-next" />
                     </svg>
                 </div>
-                <div className={classNames(styles.playerBtnRepeat, styles.btnIcon)}>
+                <div onClick={toggleLoop} className={classNames(styles.playerBtnRepeat, styles.btnIcon)}>
                     <svg className={styles.playerBtnRepeatSvg}>
-                        <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+                        <use xlinkHref={`img/icon/sprite.svg#${isLoop ? "icon-repeat-active" : "icon-repeat"}`} />
                     </svg>
                 </div>
                 <div className={classNames(styles.playerBtnShuffle, styles.btnIcon)}>
@@ -32,7 +69,7 @@ export default function Player() {
                     </svg>
                 </div>
             </div>
-            <TrackPlay />
+            <TrackPlay track={track} />
         </div>
     )
 }

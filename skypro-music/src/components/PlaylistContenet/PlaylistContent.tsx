@@ -2,16 +2,29 @@ import classNames from "classnames";
 import Track from "../Track/Track";
 import styles from "./PlaylistContent.module.css"
 import { getTracks } from "@/api/tracks";
-import { TrackType } from "@/types";
+import { trackType } from "@/types";
+import { useEffect, useState } from "react";
 
-export default async function PlaylistContent() {
+type PlaylistContentType = {
+  setTrack: (param: trackType) => void
+}
+//async
+export default function PlaylistContent({setTrack} : PlaylistContentType) {
 
-  let tracksData: TrackType[];
-  try {
-    tracksData = await getTracks();
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
+  // let tracksData: TrackType[];
+  // try {
+  //   tracksData = await getTracks();
+  // } catch (error: any) {
+  //   throw new Error(error.message);
+  // }
+
+  const [tracksData, setTracksData] = useState<trackType[]>([]);
+  useEffect(() => {
+    getTracks().then((data:trackType[]) => setTracksData(data))
+    .catch((error) => {
+      throw new Error(error.message)
+    });
+  }, []);
   
     return (
         <div className={styles.playlistContent}>
@@ -27,6 +40,7 @@ export default async function PlaylistContent() {
         </div>
         <div className={styles.playlist}>
           {tracksData.map((trackData) => <Track
+          onClick={() => setTrack(trackData)}
           key={trackData.id}
           name={trackData.name}
           author={trackData.author}
