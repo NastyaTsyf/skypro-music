@@ -1,5 +1,3 @@
-'use client'
-
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Navigation from "@/components/Navigation/Navigation";
 import Centerblock from "@/components/Centerblock/Centerblock";
@@ -9,17 +7,15 @@ import { trackType } from "@/types";
 
 export default function Home() {
 
-  const [track, setTrack] = useState<trackType | null>(null)
-
   return (
     <div className="wrapper">
       <div className="container">
         <main className="main">
           <Navigation />
-          <Centerblock setTrack={setTrack} />
+          <Centerblock />
           <Sidebar />
         </main>
-        {track && (<Bar track={track} />)}
+        <Bar />
         <footer className="footer" />
       </div>
     </div>
