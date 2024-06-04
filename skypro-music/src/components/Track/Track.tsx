@@ -13,12 +13,12 @@ export default function Track({ tracksData, trackData }: TrackType) {
     const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
     const { name, author, album, duration_in_seconds, id } = trackData;
     const isPlsying = currentTrack ? currentTrack.id === id : false;
-    //const isPlay = useAppSelector((state) => state.playlist.isPlaying)
+    //const isPlsying = useAppSelector((state) => state.playlist.isPlaying);
 
     const dispatch = useAppDispatch();
     const handleTrackClick = () => {
         dispatch(setCurrentTrack({ trackData, tracksData }));
-        dispatch(setIsPlaying(true))
+        dispatch(setIsPlaying(id));
     }
     return (
         <div onClick={handleTrackClick} className={styles.playlistItem} >

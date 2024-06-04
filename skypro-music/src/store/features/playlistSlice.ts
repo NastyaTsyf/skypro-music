@@ -7,7 +7,7 @@ type PlaylistStateType = {
   shuffledPlaylist: trackType[],
   isShuffle: boolean,
   currentTrackIndex: number | null,
-  isPlaying: boolean
+  isPlaying: boolean,
 }
 
 const initialState: PlaylistStateType = {
@@ -16,7 +16,7 @@ const initialState: PlaylistStateType = {
   shuffledPlaylist: [],
   isShuffle: false,
   currentTrackIndex: null,
-  isPlaying: true
+  isPlaying: false
 };
 
 const playlistSlice = createSlice({
@@ -27,6 +27,7 @@ const playlistSlice = createSlice({
       state.currentTrack = action.payload.trackData;
       state.playlist = action.payload.tracksData;
       state.shuffledPlaylist = [...action.payload.tracksData].sort(() => 0.5 - Math.random());
+      state.currentTrackIndex = state.playlist.findIndex((trackData) => trackData.id === state.currentTrack?.id)
     },
     setNextTrack: (state) => {
       const playlist = state.isShuffle ? state.shuffledPlaylist : state.playlist;
@@ -47,11 +48,23 @@ const playlistSlice = createSlice({
     setIsShuffle: (state, action: PayloadAction<boolean>) => {
       state.isShuffle = action.payload
     },
-    setIsPlaying: (state, action: PayloadAction<boolean>) => {
-      state.isPlaying = action.payload
+    setIsPlaying: (state, action: PayloadAction<number>) => {
+      state.isPlaying = state.currentTrack ? state.currentTrack.id === action.payload : false;
+    },
+    setIsPlayingToggle: (state, action: PayloadAction<boolean>) => {
+      state.isPlaying = action.payload;
+    },
+    setCurrentTrackIndex: (state, action: PayloadAction<number>) => {
+      state.currentTrackIndex = action.payload
+      const playlist = state.isShuffle ? state.shuffledPlaylist : state.playlist;
+      const newTrack = playlist[state.currentTrackIndex];
+      state.isPlaying = true
+      if (newTrack) {
+        state.currentTrack = newTrack;
+      }
     }
   },
 });
 
-export const { setCurrentTrack, setNextTrack, setPreviousTrack, setIsShuffle, setIsPlaying } = playlistSlice.actions;
+export const { setCurrentTrack, setNextTrack, setPreviousTrack, setIsShuffle, setIsPlaying, setCurrentTrackIndex, setIsPlayingToggle } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;
