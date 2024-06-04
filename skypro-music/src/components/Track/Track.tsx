@@ -12,20 +12,19 @@ type TrackType = {
 export default function Track({ tracksData, trackData }: TrackType) {
     const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
     const { name, author, album, duration_in_seconds, id } = trackData;
-    const isPlsying = currentTrack ? currentTrack.id === id : false;
-    //const isPlsying = useAppSelector((state) => state.playlist.isPlaying);
+    const isPlaying = currentTrack ? currentTrack.id === id : false;
+    //const isPlay = useAppSelector((state) => state.playlist.isPlaying);
 
     const dispatch = useAppDispatch();
     const handleTrackClick = () => {
         dispatch(setCurrentTrack({ trackData, tracksData }));
-        dispatch(setIsPlaying(id));
     }
     return (
         <div onClick={handleTrackClick} className={styles.playlistItem} >
             <div className={styles.playlistTrack}>
                 <div className={styles.trackTitle}>
                     <div className={styles.trackTitleImage}>
-                        {isPlsying ?
+                        {isPlaying ?
                         (<div className={styles.playingDot}></div>) :
                         (<svg className={styles.trackTitleSvg}>
                             <use xlinkHref="img/icon/sprite.svg#icon-note" />

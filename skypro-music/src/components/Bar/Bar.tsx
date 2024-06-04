@@ -44,8 +44,8 @@ export default function Bar() {
 
   // Устанавливаем источник аудио и обработчик события `ended` при изменении трека
   useEffect(() => {
-    const audio = audioRef.current;
     if (currentTrackIndex) {
+      const audio = audioRef.current;
       if (audio) {
         audio.src = playlist[currentTrackIndex].track_file;
         audio.addEventListener('ended', handleEnded);
