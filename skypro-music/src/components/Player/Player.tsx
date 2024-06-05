@@ -2,7 +2,7 @@ import classNames from "classnames";
 import TrackPlay from "../TrackPlay/TrackPlay";
 import styles from "./Player.module.css";
 import { MutableRefObject, useEffect, useState } from "react";
-import { setIsPlayingToggle, setIsShuffle, setNextTrack, setPreviousTrack } from "@/store/features/playlistSlice";
+import { setIsPlaying, setIsShuffle, setNextTrack, setPreviousTrack } from "@/store/features/playlistSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 type PlayerType = {
@@ -17,7 +17,7 @@ export default function Player({ audioRef }: PlayerType) {
 
   const togglePlay = () => {
     if (audioRef.current) {
-      dispatch(setIsPlayingToggle(!isPlaying))
+      dispatch(setIsPlaying(!isPlaying))
     }
   };
 
