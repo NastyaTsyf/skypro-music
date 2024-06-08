@@ -5,7 +5,7 @@ import Volume from "../Volume/Volume";
 import styles from "./Bar.module.css"
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { setCurrentTrackIndex } from "@/store/features/playlistSlice";
+import { setNextTrack } from "@/store/features/playlistSlice";
 
 
 export default function Bar() {
@@ -15,8 +15,6 @@ export default function Bar() {
   const audioRef = useRef<null | HTMLAudioElement>(null)
   const [currentTime, setCurrentTime] = useState<number>(0);
   const duration = audioRef.current?.duration;
-  const playlist = useAppSelector((state) => state.playlist.playlist);
-  const currentTrackIndex = useAppSelector((state) => state.playlist.currentTrackIndex);
 
   useEffect(() => {
     audioRef.current?.addEventListener("timeupdate", () => setCurrentTime(audioRef.current!.currentTime))
@@ -30,40 +28,23 @@ export default function Bar() {
   };
 
   const handleEnded = () => {
-    if (currentTrackIndex) {
-      // Проверяем, не является ли текущий трек последним в плейлисте
-      if (currentTrackIndex < playlist.length - 1) {
-        // Переход к следующему треку
-        dispatch(setCurrentTrackIndex(currentTrackIndex + 1))
-      } else {
-        // Или начинаем плейлист с начала
-        dispatch(setCurrentTrackIndex(0))
-      }
-    }
+    dispatch(setNextTrack());
   };
 
-  // Устанавливаем источник аудио и обработчик события `ended` при изменении трека
   useEffect(() => {
-    const audio = audioRef.current;
-    if (currentTrackIndex && currentTrackIndex < (playlist.length) && currentTrackIndex >= 0) {
-      if (audio) {
-        audio.src = playlist[currentTrackIndex].track_file;
-        audio.addEventListener('ended', handleEnded);
-        // Воспроизводим новый трек
-        audio.play();
-        return () => {
-          audio.removeEventListener('ended', handleEnded);
-        };
-      }
-    }
-  }, [currentTrackIndex, playlist]);
+    audioRef.current?.addEventListener("ended", handleEnded);
+    return () => {
+      audioRef.current?.removeEventListener("ended", handleEnded);
+      audioRef.current?.play();
+    };
+  }, [currentTrack, audioRef]);
 
   return (
     <>
       {currentTrack &&
         (<div className={styles.bar}>
           <div className={styles.barContent}>
-            <audio ref={audioRef} src={currentTrack.track_file}></audio>
+            <audio ref={audioRef} src={currentTrack.track_file} onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}></audio>
             <ProgressBar
               max={duration}
               value={currentTime}

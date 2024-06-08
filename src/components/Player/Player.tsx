@@ -23,12 +23,13 @@ export default function Player({ audioRef }: PlayerType) {
 
   useEffect (() => {
     if (!isPlaying) {
+      dispatch(setIsPlaying(false))
       audioRef.current?.pause();
     } else {
+      dispatch(setIsPlaying(true))
       audioRef.current?.play();
     }
-  }, [isPlaying, audioRef])
-
+  }, [isPlaying, audioRef, dispatch])
 
   const toggleLoop = () => {
     if (audioRef.current) {
