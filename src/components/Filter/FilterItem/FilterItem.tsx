@@ -1,22 +1,47 @@
 import classNames from "classnames"
 import styles from "./FilterItem.module.css"
+import { trackType } from "@/types"
+import { order } from "../data"
+import { useAppDispatch, useAppSelector } from "@/hooks"
+import { setFilters } from "@/store/features/playlistSlice"
 
 type FilterItemType = {
     title: string,
-    list: string[],
+    value: "author" | "genre" | "order",
     handleFilterClick: (newFilter: string) => void,
     isOpened: boolean,
+    tracksData: trackType[]
 
 }
-export default function FilterItem({ handleFilterClick, title, list, isOpened }: FilterItemType) {
+export default function FilterItem({ handleFilterClick, title, value, isOpened, tracksData }: FilterItemType) {
+    const dispatch = useAppDispatch()
+    const authorsList = useAppSelector((state) => state.playlist.filterOptions.author)
+    function getFilterList(): string[] {
+        if (value !== "order") {
+            const array = new Set(tracksData?.map((track) => track[value]))
+            return Array.from(array)
+        }
+        return order
+    }
+    getFilterList()
+
+    function toggleFilter(item: string) {
+        dispatch(
+            setFilters({
+                author: authorsList.includes(item)
+                    ? authorsList.filter((el) => el !== item)
+                    : [...authorsList, item]
+            })
+        )
+    }
     return (
         <>
             <div className={styles.filterItem}>
-                <div onClick={() => handleFilterClick(title)} className={classNames(styles.filterButton, classNames( isOpened ?  styles.btnTextActive : styles.btnText))}>
+                <div onClick={() => handleFilterClick(title)} className={classNames(styles.filterButton, classNames(isOpened ? styles.btnTextActive : styles.btnText))}>
                     {title}
                 </div>
                 {isOpened && (<ul className={styles.filterItemList}>
-                    {list.map((item) => (<li className={styles.filterItemListItem} key={item}>{item}</li>))}
+                    {getFilterList().map((item) => (<li onClick={() => toggleFilter(item)} className={styles.filterItemListItem} key={item}>{item}</li>))}
                 </ul>)}
             </div>
         </>

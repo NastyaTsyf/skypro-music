@@ -8,6 +8,13 @@ type PlaylistStateType = {
   isShuffle: boolean,
   currentTrackIndex: number | null,
   isPlaying: boolean,
+  filterOptions: {
+    author: string[],
+    searchValue: string,
+  },
+  filteredTracks: trackType[],
+  initialTracks: trackType[]
+
 }
 
 const initialState: PlaylistStateType = {
@@ -16,7 +23,13 @@ const initialState: PlaylistStateType = {
   shuffledPlaylist: [],
   isShuffle: false,
   currentTrackIndex: null,
-  isPlaying: false
+  isPlaying: false,
+  filterOptions: {
+    author: [],
+    searchValue: '',
+  },
+  filteredTracks: [],
+  initialTracks: []
 };
 
 const playlistSlice = createSlice({
@@ -66,8 +79,28 @@ const playlistSlice = createSlice({
     setIsPlaying: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
     },
+    setFilters: (state, action: PayloadAction<{
+      author?: string[],
+      searchValue?: string,
+    }>) => {
+      state.filterOptions = {
+        author: action.payload.author || state.filterOptions.author,
+        searchValue: action.payload.searchValue || state.filterOptions.searchValue
+      },
+      state.filteredTracks = state.initialTracks.filter((track) => {
+        const hasAuthors = state.filterOptions.author.length !== 0;
+        const isAuthors = hasAuthors ? state.filterOptions.author.includes(track.author) : true;
+        const hasSearchValue = track.name.toLowerCase().includes(state.filterOptions.searchValue.toLowerCase())
+        return isAuthors && hasSearchValue
+      })
+    },
+    setInitialTracks: (state, action: PayloadAction<trackType[]>) => {
+      state.initialTracks = action.payload;
+      state.filteredTracks = action.payload
+
+    },
   },
 });
 
-export const { setCurrentTrack, setNextTrack, setPreviousTrack, setIsShuffle, setIsPlaying} = playlistSlice.actions;
+export const { setCurrentTrack, setNextTrack, setPreviousTrack, setIsShuffle, setIsPlaying, setFilters, setInitialTracks } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import Player from "../Player/Player";
 import Volume from "../Volume/Volume";
 import styles from "./Bar.module.css"
@@ -20,12 +20,12 @@ export default function Bar() {
     audioRef.current?.addEventListener("timeupdate", () => setCurrentTime(audioRef.current!.currentTime))
   }, [])
 
-  const handleSeek = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSeek = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     if (audioRef.current) {
       setCurrentTime(Number(event.target.value))
       audioRef.current.currentTime = Number(event.target.value);
     }
-  };
+  }, []);
 
   const handleEnded = () => {
     dispatch(setNextTrack());
