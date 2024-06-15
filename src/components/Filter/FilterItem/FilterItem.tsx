@@ -10,10 +10,11 @@ type FilterItemType = {
     value: "author" | "genre" | "order",
     handleFilterClick: (newFilter: string) => void,
     isOpened: boolean,
-    tracksData: trackType[]
-
+    tracksData: trackType[],
+    filterQuantity: number
 }
-export default function FilterItem({ handleFilterClick, title, value, isOpened, tracksData }: FilterItemType) {
+
+export default function FilterItem({ handleFilterClick, title, value, isOpened, tracksData, filterQuantity }: FilterItemType) {
     const dispatch = useAppDispatch()
     const authorsList = useAppSelector((state) => state.playlist.filterOptions.author)
     function getFilterList(): string[] {
@@ -34,15 +35,17 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
             })
         )
     }
+
     return (
         <>
             <div className={styles.filterItem}>
+                {filterQuantity !== 0 && (<div className={styles.filterDot}>{filterQuantity}</div>)}
                 <div onClick={() => handleFilterClick(title)} className={classNames(styles.filterButton, classNames(isOpened ? styles.btnTextActive : styles.btnText))}>
                     {title}
                 </div>
                 {isOpened && (<ul className={styles.filterItemList}>
-                    {getFilterList().map((item) => (<li onClick={() => toggleFilter(item)} className={styles.filterItemListItem} key={item}>{item}</li>))}
-                </ul>)}
+                {getFilterList().map((item) => (<li onClick={() => toggleFilter(item)} className={classNames(authorsList.includes(item) ? styles.filterItemListItemActive : styles.filterItemListItem)} key={item}>{item}</li>))}
+            </ul>)}
             </div>
         </>
     )
