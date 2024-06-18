@@ -1,7 +1,12 @@
 .filterItem {
   display: flex;
-  gap: 10px;
   flex-direction: column;
+  gap: 10px 
+
+}
+
+.filterItemBox {
+  display: flex;
 }
 
 .filterButton {
@@ -12,11 +17,15 @@
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  flex-basis: content;
 }
 
 .filterButton:not(:last-child) {
   margin-right: 10px;
-}
+} 
 
 .btnText:hover {
   border-color: #d9b6ff;
@@ -42,6 +51,7 @@
   display: flex;
   gap: 32px;
   flex-direction: column;
+  overflow: auto
 }
 
 .filterItemListItem {
@@ -53,4 +63,20 @@
   text-decoration: underline;
 }
 
+.filterDot {
+  width: 26px;
+  height: 26px;
+  background-color: #b672ff;
+  border-radius: 13px;
+  display: block;
+  position: absolute;
+  z-index: 3;
+  text-align: center;
+}
+
+
+.filterItemListItemActive {
+  color: #B672FF;
+  text-decoration: underline;
+}
 
