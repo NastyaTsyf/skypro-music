@@ -10,11 +10,11 @@ type FilterItemType = {
     value: "author" | "genre" | "order",
     handleFilterClick: (newFilter: string) => void,
     isOpened: boolean,
-    tracksData: trackType[],
     filterQuantity: number
 }
 
-export default function FilterItem({ handleFilterClick, title, value, isOpened, tracksData, filterQuantity }: FilterItemType) {
+export default function FilterItem({ handleFilterClick, title, value, isOpened, filterQuantity }: FilterItemType) {
+    const tracksData = useAppSelector((state) => state.playlist.initialTracks )
     const dispatch = useAppDispatch()
     const authorsList = useAppSelector((state) => state.playlist.filterOptions.author)
     function getFilterList(): string[] {

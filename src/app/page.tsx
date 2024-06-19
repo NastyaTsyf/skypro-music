@@ -2,8 +2,6 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import Navigation from "@/components/Navigation/Navigation";
 import Centerblock from "@/components/Centerblock/Centerblock";
 import Bar from "@/components/Bar/Bar";
-import { useState } from "react";
-import { trackType } from "@/types";
 
 export default function Home() {
 

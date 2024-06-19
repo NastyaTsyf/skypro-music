@@ -1,17 +1,16 @@
 import classNames from "classnames";
 import Track from "../Track/Track";
 import styles from "./PlaylistContent.module.css"
-import { getTracks } from "@/api/tracks";
 import { trackType } from "@/types";
-import { useAppSelector } from "@/hooks";
 
 type PlaylistContentType = {
   tracksData: trackType[],
+  tracks: trackType[],
 }
 
-export default function PlaylistContent({tracksData}: PlaylistContentType) {
+export default function PlaylistContent({tracksData, tracks}: PlaylistContentType) {
 
-  const filteredTracks = useAppSelector((state) => state.playlist.filteredTracks)
+  //const filteredTracks = useAppSelector((state) => state.playlist.filteredTracks)
   return (
     <div className={styles.playlistContent}>
       <div className={classNames(styles.contentTitle, styles.playlistTitle)}>
@@ -25,7 +24,7 @@ export default function PlaylistContent({tracksData}: PlaylistContentType) {
         </div>
       </div>
       <div className={styles.playlist}>
-        {filteredTracks.map((trackData) =>
+        {tracks?.map((trackData) =>
           <Track
             key={trackData.id}
             trackData={trackData}
