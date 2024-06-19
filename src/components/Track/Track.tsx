@@ -4,6 +4,7 @@ import styles from "./Track.module.css"
 import { setCurrentTrack } from "@/store/features/playlistSlice";
 import { trackType } from "@/types";
 import classNames from "classnames";
+import formatSeconds from "@/lib/formatSeconds";
 
 type TrackType = {
     tracksData: trackType[],
@@ -52,7 +53,7 @@ export default function Track({ tracksData, trackData }: TrackType) {
                     <svg className={styles.trackTimeSvg}>
                         <use xlinkHref="/img/icon/sprite.svg#icon-like" />
                     </svg>
-                    <span className={styles.trackTimeText}>{duration_in_seconds}</span>
+                    <span className={styles.trackTimeText}>{formatSeconds(duration_in_seconds)}</span>
                 </div>
             </div>
         </div>

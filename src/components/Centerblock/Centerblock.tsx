@@ -12,16 +12,17 @@ import { useEffect, useState } from "react";
 type CenterblockType = {
   tracks: trackType[],
   playlist: trackType[],
-  isCategory: boolean
+  isCategory: boolean,
+  categoryName: string
 }
 
 
-export default function Centerblock({tracks, playlist, isCategory}: CenterblockType) {
+export default function Centerblock({tracks, playlist, isCategory, categoryName}: CenterblockType) {
 
   return (
     <div className={styles.centerblock}>
       <Search />
-      <h2 className={styles.centerblockH2}>Треки</h2>
+      <h2 className={styles.centerblockH2}>{categoryName}</h2>
       {!isCategory && <Filter />}
       <PlaylistContent tracksData={playlist} tracks={tracks}/>
     </div>

@@ -18,7 +18,7 @@ export default function MainTracksPage({}) {
         })
     },[dispatch])
     return(
-          <Centerblock tracks={filteredTracks} playlist={tracks} isCategory={false} />
+          <Centerblock tracks={filteredTracks} playlist={tracks} isCategory={false} categoryName={'Треки'} />
     )
 
 }
