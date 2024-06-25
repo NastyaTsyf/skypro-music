@@ -6,6 +6,7 @@ import styles from "./Bar.module.css"
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { setNextTrack } from "@/store/features/playlistSlice";
+import formatSeconds from "@/lib/formatSeconds";
 
 
 export default function Bar() {
@@ -45,6 +46,7 @@ export default function Bar() {
         (<div className={styles.bar}>
           <div className={styles.barContent}>
             <audio ref={audioRef} src={currentTrack.track_file} onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}></audio>
+            <div>{formatSeconds(currentTime)} / {formatSeconds(duration)}</div>
             <ProgressBar
               max={duration}
               value={currentTime}

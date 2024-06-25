@@ -9,26 +9,22 @@ import { useAppDispatch } from "@/hooks";
 import { setInitialTracks } from "@/store/features/playlistSlice";
 import { useEffect, useState } from "react";
 
+type CenterblockType = {
+  tracks: trackType[],
+  playlist: trackType[],
+  isCategory: boolean,
+  categoryName: string
+}
 
-export default function Centerblock() {
-  const dispatch = useAppDispatch();
-  const [tracks, setTracks] = useState<trackType[]>([])
 
-  let tracksData: trackType[];
+export default function Centerblock({tracks, playlist, isCategory, categoryName}: CenterblockType) {
 
-
-  useEffect(() => {
-      getTracks().then((tracksData) => {
-        dispatch(setInitialTracks(tracksData));
-        setTracks(tracksData)
-      })
-  },[dispatch])
   return (
     <div className={styles.centerblock}>
       <Search />
-      <h2 className={styles.centerblockH2}>Треки</h2>
-      <Filter tracksData={tracks} />
-      <PlaylistContent tracksData={tracks}/>
+      <h2 className={styles.centerblockH2}>{categoryName}</h2>
+      {!isCategory && <Filter />}
+      <PlaylistContent tracksData={playlist} tracks={tracks}/>
     </div>
   )
 }

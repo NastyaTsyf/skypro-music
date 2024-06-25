@@ -7,11 +7,10 @@ import { trackType } from "@/types"
 import { useAppSelector } from "@/hooks"
 
 type FilterType = {
-  tracksData: trackType[]
 
 }
 
-export default function Filter({ tracksData }: FilterType) {
+export default function Filter({}: FilterType) {
   const [activeFilter, setActiveFilter] = useState<string | null>(null)
   function handleFilterClick(newFilter: string) {
     setActiveFilter((prev) => prev === newFilter ? null : newFilter)
@@ -25,21 +24,18 @@ export default function Filter({ tracksData }: FilterType) {
         handleFilterClick={handleFilterClick}
         title={filters[0].title}
         value={filters[0].value}
-        tracksData={tracksData}
         filterQuantity={authorsList.length} />
       <FilterItem
         isOpened={activeFilter === filters[1].title ? true : false}
         handleFilterClick={handleFilterClick}
         title={filters[1].title}
         value={filters[1].value}
-        tracksData={tracksData}
         filterQuantity={0}  />
       <FilterItem
         isOpened={activeFilter === filters[2].title ? true : false}
         handleFilterClick={handleFilterClick}
         title={filters[2].title}
         value={filters[2].value}
-        tracksData={tracksData}
         filterQuantity={0}  />
     </div>
   )
