@@ -65,7 +65,11 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
                     {getFilterList().map((item) =>
                     (<li
                         onClick={value === "order" ? () => handleOrderFilter(item) : () => toggleFilter(item)}
-                        className={classNames(value === ("author" || "genre") ? ((authorsList.includes(item) || genresList.includes(item)) ? styles.filterItemListItemActive : styles.filterItemListItem) : (item === orderFilter ? styles.filterItemListItemActive : styles.filterItemListItem))}
+                        className={classNames(styles.filterItemListItem, {
+                            [styles.filterItemListItemActive]: genresList.includes(item),
+                            [styles.filterItemListItemActive]: authorsList.includes(item),
+                            [styles.filterItemListItemActive]: orderFilter === item
+                        })}
                         key={item}>
                         {item}
                     </li>))}

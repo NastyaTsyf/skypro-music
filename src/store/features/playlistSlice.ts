@@ -110,7 +110,6 @@ const playlistSlice = createSlice({
     },
     setSortTraks: (state, action: PayloadAction<string>) => {
       state.filterOptions.order = action.payload
-      console.log(state.filterOptions.order)
       if (state.filterOptions.order === "Сначала старые") {
         state.filteredTracks = state.filteredTracks.sort((a, b) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime())
         console.log(state.filteredTracks)
