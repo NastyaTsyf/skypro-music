@@ -14,9 +14,10 @@ type FilterItemType = {
 }
 
 export default function FilterItem({ handleFilterClick, title, value, isOpened, filterQuantity }: FilterItemType) {
-    const tracksData = useAppSelector((state) => state.playlist.initialTracks )
+    const tracksData = useAppSelector((state) => state.playlist.initialTracks)
     const dispatch = useAppDispatch()
     const authorsList = useAppSelector((state) => state.playlist.filterOptions.author)
+    const genresList = useAppSelector((state) => state.playlist.filterOptions.genre)
     function getFilterList(): string[] {
         if (value !== "order") {
             const array = new Set(tracksData?.map((track) => track[value]))
@@ -27,13 +28,24 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
     getFilterList()
 
     function toggleFilter(item: string) {
-        dispatch(
-            setFilters({
-                author: authorsList.includes(item)
-                    ? authorsList.filter((el) => el !== item)
-                    : [...authorsList, item]
-            })
-        )
+        if (value === "author") {
+            dispatch(
+                setFilters({
+                    author: authorsList.includes(item)
+                        ? authorsList.filter((el) => el !== item)
+                        : [...authorsList, item],
+                })
+            )
+        }
+        if (value === "genre") {
+            dispatch(
+                setFilters({
+                    genre: genresList.includes(item)
+                        ? genresList.filter((el) => el !== item)
+                        : [...genresList, item]
+                })
+            )
+        }
     }
 
     return (
@@ -44,8 +56,8 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
                     {title}
                 </div>
                 {isOpened && (<ul className={styles.filterItemList}>
-                {getFilterList().map((item) => (<li onClick={() => toggleFilter(item)} className={classNames(authorsList.includes(item) ? styles.filterItemListItemActive : styles.filterItemListItem)} key={item}>{item}</li>))}
-            </ul>)}
+                    {getFilterList().map((item) => (<li onClick={() => toggleFilter(item)} className={classNames((value === "author" ? (authorsList).includes(item) : (genresList).includes(item)) ? styles.filterItemListItemActive : styles.filterItemListItem)} key={item}>{item}</li>))}
+                </ul>)}
             </div>
         </>
     )

@@ -10,6 +10,7 @@ type PlaylistStateType = {
   isPlaying: boolean,
   filterOptions: {
     author: string[],
+    genre: string[],
     searchValue: string,
   },
   filteredTracks: trackType[],
@@ -26,6 +27,7 @@ const initialState: PlaylistStateType = {
   isPlaying: false,
   filterOptions: {
     author: [],
+    genre: [],
     searchValue: '',
   },
   filteredTracks: [],
@@ -81,17 +83,21 @@ const playlistSlice = createSlice({
     },
     setFilters: (state, action: PayloadAction<{
       author?: string[],
+      genre?: string[],
       searchValue?: string,
     }>) => {
       state.filterOptions = {
         author: action.payload.author || state.filterOptions.author,
+        genre: action.payload.genre || state.filterOptions.genre,
         searchValue: action.payload.searchValue || state.filterOptions.searchValue
       },
       state.filteredTracks = state.initialTracks.filter((track) => {
         const hasAuthors = state.filterOptions.author.length !== 0;
         const isAuthors = hasAuthors ? state.filterOptions.author.includes(track.author) : true;
+        const hasGenres = state.filterOptions.genre.length !== 0;
+        const isGenres = hasGenres ? state.filterOptions.genre.includes(track.genre) : true;
         const hasSearchValue = track.name.toLowerCase().includes(state.filterOptions.searchValue.toLowerCase())
-        return isAuthors && hasSearchValue
+        return isAuthors && hasSearchValue && isGenres
       })
     },
     setInitialTracks: (state, action: PayloadAction<trackType[]>) => {
