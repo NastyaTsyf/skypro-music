@@ -1,9 +1,8 @@
 import classNames from "classnames"
 import styles from "./FilterItem.module.css"
-import { trackType } from "@/types"
 import { order } from "../data"
 import { useAppDispatch, useAppSelector } from "@/hooks"
-import { setFilters } from "@/store/features/playlistSlice"
+import { setFilters, setSortTraks } from "@/store/features/playlistSlice"
 
 type FilterItemType = {
     title: string,
@@ -14,6 +13,7 @@ type FilterItemType = {
 }
 
 export default function FilterItem({ handleFilterClick, title, value, isOpened, filterQuantity }: FilterItemType) {
+    const orderFilter = useAppSelector((state) => state.playlist.filterOptions.order)
     const tracksData = useAppSelector((state) => state.playlist.initialTracks)
     const dispatch = useAppDispatch()
     const authorsList = useAppSelector((state) => state.playlist.filterOptions.author)
@@ -48,6 +48,12 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
         }
     }
 
+    function handleOrderFilter(item: string) {
+        dispatch(
+            setSortTraks(item)
+        )
+    }
+
     return (
         <>
             <div className={styles.filterItem}>
@@ -56,7 +62,13 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
                     {title}
                 </div>
                 {isOpened && (<ul className={styles.filterItemList}>
-                    {getFilterList().map((item) => (<li onClick={() => toggleFilter(item)} className={classNames((value === "author" ? (authorsList).includes(item) : (genresList).includes(item)) ? styles.filterItemListItemActive : styles.filterItemListItem)} key={item}>{item}</li>))}
+                    {getFilterList().map((item) =>
+                    (<li
+                        onClick={value === "order" ? () => handleOrderFilter(item) : () => toggleFilter(item)}
+                        className={classNames(value === ("author" || "genre") ? ((authorsList.includes(item) || genresList.includes(item)) ? styles.filterItemListItemActive : styles.filterItemListItem) : (item === orderFilter ? styles.filterItemListItemActive : styles.filterItemListItem))}
+                        key={item}>
+                        {item}
+                    </li>))}
                 </ul>)}
             </div>
         </>

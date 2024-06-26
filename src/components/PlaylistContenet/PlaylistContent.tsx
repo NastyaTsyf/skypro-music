@@ -12,7 +12,6 @@ type PlaylistContentType = {
 export default function PlaylistContent({tracksData, tracks}: PlaylistContentType) {
 
   const filteredTracks = useAppSelector((state) => state.playlist.filteredTracks)
-  console.log(filteredTracks)
   return (
     <div className={styles.playlistContent}>
       <div className={classNames(styles.contentTitle, styles.playlistTitle)}>
