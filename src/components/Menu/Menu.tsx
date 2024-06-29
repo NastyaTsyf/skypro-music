@@ -6,7 +6,7 @@ export default function Menu() {
         <div className={styles.menu}>
         <ul className={styles.menuList}>
           <li className={styles.menuItem}>
-            <Link href="#" className={styles.menuLink}>
+            <Link href="/tracks" className={styles.menuLink}>
               Главное
             </Link>
           </li>
@@ -16,7 +16,7 @@ export default function Menu() {
             </Link>
           </li>
           <li className={styles.menuItem}>
-            <Link href="../signin.html" className={styles.menuLink}>
+            <Link href="/signin" className={styles.menuLink}>
               Войти
             </Link>
           </li>

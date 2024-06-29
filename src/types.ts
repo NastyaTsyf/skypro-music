@@ -1,4 +1,4 @@
-type userType = {
+export type userType = {
     id: number,
     username: string,
     first_name: string,
@@ -19,4 +19,16 @@ export type trackType = {
     stared_user: userType[]
 
 }
+
+export type signinFormType = {
+    email: string,
+    password: string
+}
+
+export type tokensType = {
+    access: string | null,
+    refresh: string | null
+}
+
+
 
