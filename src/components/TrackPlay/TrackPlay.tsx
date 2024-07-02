@@ -1,11 +1,13 @@
+'use client'
 import Link from "next/link"
 import styles from "./TrackPlay.module.css"
 import classNames from "classnames"
-import { useAppSelector } from "@/hooks"
+import { useAppSelector, useLikeTrack } from "@/hooks"
 
 
 export default function TrackPlay() {
     const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
+    // const { isLiked, handleLike } = useLikeTrack(currentTrack);
     return (
         <>
             {currentTrack &&
@@ -30,12 +32,7 @@ export default function TrackPlay() {
                     <div className={styles.trackPlayLikeDis}>
                         <div className={classNames(styles.trackPlayLike, styles.btnIcon)}>
                             <svg className={styles.trackPlayLikeSvg}>
-                                <use xlinkHref="img/icon/sprite.svg#icon-like" />
-                            </svg>
-                        </div>
-                        <div className={classNames(styles.trackPlayDislike, styles.btnIcon)}>
-                            <svg className={styles.trackPlayDislikeSvg}>
-                                <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
+                                <use xlinkHref={`/img/icon/sprite.svg#icon-like`} />
                             </svg>
                         </div>
                     </div>

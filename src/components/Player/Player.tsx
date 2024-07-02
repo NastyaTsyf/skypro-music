@@ -14,6 +14,7 @@ export default function Player({ audioRef }: PlayerType) {
   const dispatch = useAppDispatch();
   const isPlaying = useAppSelector((state) => state.playlist.isPlaying)
   const [isLoop, setIsLoop] = useState<boolean>(false);
+  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
 
   const togglePlay = () => {
     if (audioRef.current) {

@@ -4,10 +4,9 @@ import Filter from "../Filter/Filter";
 import PlaylistContent from "../PlaylistContenet/PlaylistContent";
 import Search from "../Search/Search";
 import styles from "./Centerblock.module.css"
-import { getTracks } from "@/api/tracks";
-import { useAppDispatch } from "@/hooks";
-import { setInitialTracks } from "@/store/features/playlistSlice";
-import { useEffect, useState } from "react";
+import { useAppSelector } from "@/hooks";
+import Link from "next/link";
+
 
 type CenterblockType = {
   tracks: trackType[],
@@ -17,8 +16,7 @@ type CenterblockType = {
 }
 
 
-export default function Centerblock({tracks, playlist, isCategory, categoryName}: CenterblockType) {
-
+export default function Centerblock({ tracks, playlist, isCategory, categoryName }: CenterblockType) {
   return (
     <div className={styles.centerblock}>
       <Search />

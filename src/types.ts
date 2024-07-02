@@ -3,7 +3,8 @@ export type userType = {
     username: string,
     first_name: string,
     last_name: string,
-    email: string
+    email: string,
+    password: string
 }
 
 export type trackType = {
@@ -30,5 +31,12 @@ export type tokensType = {
     refresh: string | null
 }
 
+
+export type signupFormType = {
+    email: string,
+    password: string,
+    username: string
+
+}
 
 

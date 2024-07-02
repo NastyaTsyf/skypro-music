@@ -1,10 +1,13 @@
+'use client'
 import Bar from "@/components/Bar/Bar";
 import Navigation from "@/components/Navigation/Navigation";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import { useAppSelector } from "@/hooks";
 
 export default function TrackLayout({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
     return (
         <div className="wrapper">
             <div className="container">

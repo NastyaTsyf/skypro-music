@@ -1,5 +1,5 @@
-import { fetchTokens, fetchUser } from "@/api/user";
-import { signinFormType, tokensType, userType } from "@/types";
+import { fetchSignup, fetchTokens, fetchUser, refreshToken } from "@/api/user";
+import { signinFormType, signupFormType, tokensType, userType } from "@/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const getUser = createAsyncThunk(
@@ -15,6 +15,22 @@ export const getTokens = createAsyncThunk(
     async ({ email, password }: signinFormType) => {
         const tokens = await fetchTokens({ email, password })
         return tokens
+    }
+)
+
+export const getSignup = createAsyncThunk(
+    "user/getSignup",
+    async ({ email, password, username }: signupFormType) => {
+        const user = await fetchSignup({ email, password, username })
+        return user
+    }
+)
+
+export const getNewAccessToken = createAsyncThunk(
+    "user/getNewAccessToken",
+    async ( refresh: string) => {
+        const token = await refreshToken( refresh )
+        return token
     }
 )
 
@@ -50,6 +66,10 @@ const userSlice = createSlice({
         }).addCase(getTokens.fulfilled, (state, action: PayloadAction<tokensType>) => {
             state.tokens.access = action.payload.access;
             state.tokens.refresh = action.payload.refresh;
+        }).addCase(getSignup.fulfilled, (state, action: PayloadAction<userType>) => {
+            state.user = action.payload;
+        }).addCase(getNewAccessToken.fulfilled, (state, action: PayloadAction<string>) => {
+            state.tokens.access = action.payload;
         })
     },
 });
