@@ -49,8 +49,8 @@ export default function Track({ tracksData, trackData }: TrackType) {
                         {album}
                     </span>
                 </div>
-                <div className={styles.trackTime}>
-                    <svg onClick={handleLike}  className={styles.trackTimeSvg}>
+                <div onClick={handleLike} className={styles.trackTime}>
+                    <svg   className={styles.trackTimeSvg}>
                         <use xlinkHref={`/img/icon/sprite.svg#${isLiked ? "icon-like" : "icon-dislike"}`} />
                     </svg>
                     <span className={styles.trackTimeText}>{formatSeconds(duration_in_seconds)}</span>

@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Modal.module.css"
 import classNames from "classnames";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks";
 import { useState } from "react";
 import { getSignup, getTokens, getUser } from "@/store/features/userSlice";
 
 export default function ModalSignup() {
+  const router = useRouter()
 
   const dispatch = useAppDispatch()
   const [formData, setFormData] = useState({
@@ -31,10 +32,13 @@ export default function ModalSignup() {
     try {
       await Promise.all([
         dispatch(getSignup(formData)).unwrap()
-      ]).then(() => {Promise.all([
-        dispatch(getTokens(formData)).unwrap(),
-        dispatch(getUser(formData)).unwrap(),
-      ])})
+      ]).then(() => {
+        Promise.all([
+          dispatch(getTokens(formData)).unwrap(),
+          dispatch(getUser(formData)).unwrap(),
+        ])
+        router.push("/")
+      })
     } catch (error) {
       console.log(error)
     }
@@ -72,7 +76,7 @@ export default function ModalSignup() {
           onChange={handleChange}
         />
         <button onClick={handleSubmit} className={styles.modalBtnSignupEnt}>
-          <Link href="/">Зарегистрироваться</Link>
+          Зарегистрироваться
         </button>
       </form>
     </div>

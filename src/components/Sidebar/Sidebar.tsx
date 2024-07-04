@@ -1,7 +1,9 @@
 import Image from "next/image"
 import styles from "./Sidebar.module.css"
 import Link from "next/link"
-import User from "../User/User"
+import dynamic from "next/dynamic"
+
+const User = dynamic(() => import("@components/User/User"), {ssr: false})
 export default function Sidebar() {
   return (
     <div className={styles.mainSidebar}>

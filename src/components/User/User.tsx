@@ -7,7 +7,7 @@ export default function User() {
   const dispatch = useAppDispatch()
   useInitializeLikedTracks();
   const userName = useAppSelector((state) => state.user.user?.username);
-  const refreshToken = useAppSelector((state) => state.user.tokens.refresh);
+  const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
   if (!userName) {
     return null;
   }
@@ -22,11 +22,11 @@ export default function User() {
     }
   }
 
-  setInterval(() => getFreshAccess(), 2000000);
+  setInterval(() => getFreshAccess(), 199000);
   return (
     <div className={styles.sidebarPersonal}>
       <p className={styles.sidebarPersonalName}>{userName}</p>
-      <div onClick={() => dispatch(logout())} className={styles.sidebarIcon}>
+      <div onClick={() => {dispatch(logout()); localStorage.removeItem("user"); localStorage.removeItem("token")}} className={styles.sidebarIcon}>
         <svg>
           <use xlinkHref="/img/icon/sprite.svg#logout" />
         </svg>

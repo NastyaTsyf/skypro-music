@@ -34,6 +34,15 @@ export const getNewAccessToken = createAsyncThunk(
     }
 )
 
+function getValueFromLS (key: string) {
+try {
+    const value = localStorage.getItem(key)
+    return value ? JSON.parse(value) : null
+} catch (error) {
+    null
+}
+}
+
 type userStateType = {
     user: null | userType,
     tokens: {
@@ -43,10 +52,10 @@ type userStateType = {
 }
 
 const initialState: userStateType = {
-    user: null,
+    user: getValueFromLS("user"),
     tokens: {
-        access: null,
-        refresh: null
+        access: getValueFromLS("access"),
+        refresh: getValueFromLS("refresh")
     }
 };
 

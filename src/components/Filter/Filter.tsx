@@ -3,14 +3,10 @@ import styles from "./Filter.module.css"
 import FilterItem from "./FilterItem/FilterItem"
 import { useState } from "react"
 import { filters } from "./data"
-import { trackType } from "@/types"
 import { useAppSelector } from "@/hooks"
 
-type FilterType = {
 
-}
-
-export default function Filter({}: FilterType) {
+export default function Filter() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null)
   function handleFilterClick(newFilter: string) {
     setActiveFilter((prev) => prev === newFilter ? null : newFilter)

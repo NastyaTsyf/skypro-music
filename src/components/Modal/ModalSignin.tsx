@@ -29,8 +29,13 @@ export default function ModalSignin() {
         e.preventDefault();
         try {
             await Promise.all([
-                dispatch(getTokens(formData)).unwrap(),
-                dispatch(getUser(formData)).unwrap(),
+                dispatch(getTokens(formData)).unwrap().then((data) => {
+                    localStorage.setItem("access", JSON.stringify(data.access));
+                    localStorage.setItem("refresh", JSON.stringify(data.refresh))
+                }),
+                dispatch(getUser(formData)).unwrap().then((data) => {
+                    localStorage.setItem("user", JSON.stringify(data))
+                })
             ])
             router.push("/")
         } catch (error) {

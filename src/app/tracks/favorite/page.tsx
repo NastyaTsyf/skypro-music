@@ -1,7 +1,6 @@
 'use client'
 import Centerblock from "@/components/Centerblock/Centerblock"
 import { useAppSelector } from "@/hooks";
-import Link from "next/link";
 
 export default function FavoriteTracksPage() {
     const tracks = useAppSelector((state) => state.playlist.likedTracks);

@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from "react-redux";
 import { AppDispatch, AppStore, RootState } from "./store/store";
 import { useEffect } from "react";
-import { dislikeTrack, getFavoriteTracks, likeTrack } from "./store/features/playlistSlice";
+import { clearLikedTracks, dislikeTrack, getFavoriteTracks, likeTrack } from "./store/features/playlistSlice";
 import { trackType } from "./types";
 import { dislikeTrackFetch, likeTrackFetch } from "./api/tracks";
 
@@ -14,8 +14,10 @@ export function useInitializeLikedTracks() {
     const dispatch = useAppDispatch();
     const tokens = useAppSelector((state) => state.user.tokens);
     useEffect(() => {
-        if (tokens.access) {
+        if (tokens?.access) {
             dispatch(getFavoriteTracks(tokens.access))
+        } else {
+            dispatch(clearLikedTracks())
         }
     }, [tokens, dispatch])
 }
@@ -26,13 +28,13 @@ export const useLikeTrack = (track: trackType) => {
     const tokens = useAppSelector((state) => state.user.tokens);
     const isLiked = likedTracks.some(likedTrack => likedTrack.id === track.id);
     const handleLike = async (
-        e: React.MouseEvent<SVGSVGElement, MouseEvent>
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>
     ) => {
         const action = isLiked ? dislikeTrackFetch : likeTrackFetch
         try {
             await action({
                 id: String(track.id),
-                access: tokens.access,
+                access: tokens?.access,
             });
             if (isLiked) {
                 dispatch(dislikeTrack(track));

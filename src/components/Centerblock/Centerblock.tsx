@@ -5,7 +5,6 @@ import PlaylistContent from "../PlaylistContenet/PlaylistContent";
 import Search from "../Search/Search";
 import styles from "./Centerblock.module.css"
 import { useAppSelector } from "@/hooks";
-import Link from "next/link";
 
 
 type CenterblockType = {
@@ -17,6 +16,7 @@ type CenterblockType = {
 
 
 export default function Centerblock({ tracks, playlist, isCategory, categoryName }: CenterblockType) {
+  const userName = useAppSelector((state) => state.user.user?.username);
   return (
     <div className={styles.centerblock}>
       <Search />

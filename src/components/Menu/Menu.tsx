@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { logout } from "@/store/features/userSlice";
 
 export default function Menu() {
-  const tokens = useAppSelector((state) => state.user.tokens);
+  const userName = useAppSelector((state) => state.user.user?.username);
   const dispatch = useAppDispatch()
   return (
     <div className={styles.menu}>
@@ -15,7 +15,7 @@ export default function Menu() {
             Главное
           </Link>
         </li>
-        {tokens.access &&
+        {userName &&
           <li className={styles.menuItem}>
             <Link href={"/tracks/favorite"} className={styles.menuLink}>
               Мой плейлист
@@ -23,8 +23,8 @@ export default function Menu() {
           </li>
         }
         <li className={styles.menuItem}>
-          {tokens.access ?
-            <div onClick={() => dispatch(logout())} className={styles.menuLink}>
+          {userName ?
+            <div onClick={() => {dispatch(logout()); localStorage.removeItem("user"); localStorage.removeItem("token")}} className={styles.menuLink}>
               Выйти
             </div>
             :
