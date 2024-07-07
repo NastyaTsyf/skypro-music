@@ -1,36 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+У этого сервиса есть следующие функции:
+- Регистрация (log in):На экране регистрации пользователь придумывает почту и пароль и Имя пользователя. После этого он нажимает “Зарегистрироваться”
+- Возможность залогиниться и разлогиниться (sign up, sign out): на стартовом экране - экран "Войти" пользователю предлагается ввести почту и пароль, если он уже зарегистрирован, и нажать "Войти". Если пользователь еще не зарегистрирован, ему необходимо нажать "Зарегистрироваться"
+- Витрина с доступными треками: неавторизованный пользователь может видеть и слушать все доступные треки; В списке треков фиолетовой точкой отображается текущий трек.Если текущий трек воспроизводится, то точка “пульсирует”.
+- Встроенный в приложение плеер: при нажатии на трек из витрины с доступными треками появляется интерфейс плеера с возможностью прослушивания музыки, постановки на паузу и снятия с нее, перемотки, повтора трека, shuffle плейлиста, регулирования громкости.
+- Добавление трека в избранное (только для авторизванного пользователя): Клик по пустому сердечку добавляет трек в Мои треки.Клик по перечеркнутому сердечку - убирает трек со страницы Мои треки. 
+- Список подборок: При нажатии на любую из подборок, пользователь переходит на страницу с нужной подборкой. В ней отображаются все треки, которые в нее входят
+- Поиск: Пользователь вводит название трека в строке “Поиск”, и происходит их фильтрация по названию. Это значит, что, если пользователь ввел "tro", ему выдаст трек с названием "Elektro" и все треки, в названиях которых есть строка tro: "Troelf", "FooTroBar"; 
+- Сортировка: Пользователь может сортировать треки тремя способами: от старых к новым, от новых к старым и по умолчанию. Пользователь не может выбрать несколько вариантов сортировки одновременно. При клике вариант сортировки становится активным, все остальные отменяются.
+- Фильтрация по исполнителю: При нажатии на “исполнителю” пользователь видит выпадающее меню, в котором показываются только первые пять элементов (остальные нужно скроллить). Пользователь может выбрать несколько исполнителей одновременно;
+- Фильтрация по жанру: При нажатии на “жанру” пользователь видит выпадающее меню, в котором показываются только первые пять элементов (остальные нужно скроллить). Пользователь может выбрать несколько жанров одновременно
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
