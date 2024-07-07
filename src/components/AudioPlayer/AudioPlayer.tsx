@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, MutableRefObject } from 'react';
+import React, { useState, useEffect, MutableRefObject } from 'react';
 import styles from "./AudioPlayer.module.css"
 
 type AudioPlayerType = {

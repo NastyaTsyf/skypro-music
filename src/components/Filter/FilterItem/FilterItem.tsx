@@ -1,9 +1,8 @@
 import classNames from "classnames"
 import styles from "./FilterItem.module.css"
-import { trackType } from "@/types"
 import { order } from "../data"
 import { useAppDispatch, useAppSelector } from "@/hooks"
-import { setFilters } from "@/store/features/playlistSlice"
+import { setFilters, setSortTraks } from "@/store/features/playlistSlice"
 
 type FilterItemType = {
     title: string,
@@ -14,9 +13,11 @@ type FilterItemType = {
 }
 
 export default function FilterItem({ handleFilterClick, title, value, isOpened, filterQuantity }: FilterItemType) {
-    const tracksData = useAppSelector((state) => state.playlist.initialTracks )
+    const orderFilter = useAppSelector((state) => state.playlist.filterOptions.order)
+    const tracksData = useAppSelector((state) => state.playlist.initialTracks)
     const dispatch = useAppDispatch()
     const authorsList = useAppSelector((state) => state.playlist.filterOptions.author)
+    const genresList = useAppSelector((state) => state.playlist.filterOptions.genre)
     function getFilterList(): string[] {
         if (value !== "order") {
             const array = new Set(tracksData?.map((track) => track[value]))
@@ -27,12 +28,29 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
     getFilterList()
 
     function toggleFilter(item: string) {
+        if (value === "author") {
+            dispatch(
+                setFilters({
+                    author: authorsList.includes(item)
+                        ? authorsList.filter((el) => el !== item)
+                        : [...authorsList, item],
+                })
+            )
+        }
+        if (value === "genre") {
+            dispatch(
+                setFilters({
+                    genre: genresList.includes(item)
+                        ? genresList.filter((el) => el !== item)
+                        : [...genresList, item]
+                })
+            )
+        }
+    }
+
+    function handleOrderFilter(item: string) {
         dispatch(
-            setFilters({
-                author: authorsList.includes(item)
-                    ? authorsList.filter((el) => el !== item)
-                    : [...authorsList, item]
-            })
+            setSortTraks(item)
         )
     }
 
@@ -44,8 +62,17 @@ export default function FilterItem({ handleFilterClick, title, value, isOpened, 
                     {title}
                 </div>
                 {isOpened && (<ul className={styles.filterItemList}>
-                {getFilterList().map((item) => (<li onClick={() => toggleFilter(item)} className={classNames(authorsList.includes(item) ? styles.filterItemListItemActive : styles.filterItemListItem)} key={item}>{item}</li>))}
-            </ul>)}
+                    {getFilterList().map((item) =>
+                    (<li
+                        onClick={value === "order" ? () => handleOrderFilter(item) : () => toggleFilter(item)}
+                        className={classNames(styles.filterItemListItem,
+                             {[styles.filterItemListItemActive]: genresList.includes(item)},
+                             {[styles.filterItemListItemActive]: authorsList.includes(item)},
+                             {[styles.filterItemListItemActive]: orderFilter === item})}
+                        key={item}>
+                        {item}
+                    </li>))}
+                </ul>)}
             </div>
         </>
     )

@@ -2,6 +2,7 @@ import classNames from "classnames";
 import Track from "../Track/Track";
 import styles from "./PlaylistContent.module.css"
 import { trackType } from "@/types";
+import { useAppSelector } from "@/hooks";
 
 type PlaylistContentType = {
   tracksData: trackType[],
@@ -9,8 +10,7 @@ type PlaylistContentType = {
 }
 
 export default function PlaylistContent({tracksData, tracks}: PlaylistContentType) {
-
-  //const filteredTracks = useAppSelector((state) => state.playlist.filteredTracks)
+  const filteredTracks = useAppSelector((state) => state.playlist.filteredTracks)
   return (
     <div className={styles.playlistContent}>
       <div className={classNames(styles.contentTitle, styles.playlistTitle)}>
@@ -24,12 +24,14 @@ export default function PlaylistContent({tracksData, tracks}: PlaylistContentTyp
         </div>
       </div>
       <div className={styles.playlist}>
-        {tracks?.map((trackData) =>
+        {filteredTracks.length > 0 ? tracks?.map((trackData) =>
           <Track
             key={trackData.id}
             trackData={trackData}
             tracksData={tracksData}
-          />)}
+          />) : "Треки не найдены"
+          }
+
       </div>
     </div>
   )

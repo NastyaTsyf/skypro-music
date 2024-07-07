@@ -1,3 +1,4 @@
+'use client'
 import Bar from "@/components/Bar/Bar";
 import Navigation from "@/components/Navigation/Navigation";
 import Sidebar from "@/components/Sidebar/Sidebar";
